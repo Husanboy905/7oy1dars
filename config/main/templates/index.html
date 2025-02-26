@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block title %} Home - Car Project {% endblock %}
+
+{% block content %}
+<h1 class="text-center">All Cars</h1>
+<div class="row">
+    {% for car in cars %}
+        <div class="col-md-4">
+            <div class="card mb-3">
+                {% if car.photo %}
+                    <img src="{{ car.photo.url }}" class="card-img-top" alt="{{ car.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ car.name }}</h5>
+                    <p class="card-text">Brand: {{ car.brand.name }}</p>
+                    <p class="card-text">Color: {{ car.color.name }}</p>
+                    <p class="card-text">Price: ${{ car.price }}</p>
+                    <a href="{% url 'car_detail' car.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No cars available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+</body>
+</html>

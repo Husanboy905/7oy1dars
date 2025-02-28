@@ -120,17 +120,34 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "static"
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATIC_URL = '/static/'
+
+# STATICFILES_DIRS – loyihangizning statik manba fayllari joylashgan kataloglari.
 STATICFILES_DIRS = [
-    BASE_DIR / 'staticfiles'
+    os.path.join(BASE_DIR, 'static'),
 ]
 
-
+# # STATIC_ROOT – collectstatic buyrug‘i bajarilganda barcha statik fayllar yig‘iladigan katalog.
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
+import os
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Gmail uchun
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'xad78073@gmail.com'  # O'zingizning emailingiz
+EMAIL_HOST_PASSWORD = 'cxvh dcfg imov hsip'  # Gmail App Password yaratish kerak!
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

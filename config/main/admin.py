@@ -1,17 +1,12 @@
 from django.contrib import admin
 from .models import Cars, Colors, Brands,Comment
-# from django.contrib import admin
-# from .models import Cars
 
-# from django.contrib import admin
-# from .models import Cars
 
 class CarsAdmin(admin.ModelAdmin):
     list_display = ['id', 'brand', 'color', 'name']
 
 admin.site.register(Cars, CarsAdmin)  # To'g'ri usul
 
-# admin.site.register(Cars)
 admin.site.register(Colors)
 admin.site.register(Brands)
 admin.site.register(Comment)

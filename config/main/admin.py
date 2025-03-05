@@ -1,18 +1,18 @@
 from django.contrib import admin
-from .models import Cars, Colors, Brands,Comment
+from .models import Cars, Comment, Brands, Colors, Categories
 
-
+@admin.register(Cars)
 class CarsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'brand', 'color', 'name']
+    list_display = ('name', 'brand', 'color')
+    search_fields = ('name',)
 
-admin.site.register(Cars, CarsAdmin)  # To'g'ri usul
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('car', 'user', 'created_at')
 
-admin.site.register(Colors)
 admin.site.register(Brands)
-admin.site.register(Comment)
-
-
-
+admin.site.register(Colors)
+admin.site.register(Categories)
 
 
 

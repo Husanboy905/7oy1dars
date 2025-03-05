@@ -68,7 +68,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-# from django.contrib.auth import login
+
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 
@@ -170,3 +170,87 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect("index")
+
+
+
+
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
+from .models import Cars
+
+
+class CarUpdateView(UpdateView):
+    model = Cars
+    fields = ['name', 'brand', 'color', 'year', 'price']
+    template_name = 'car_update.html'
+    success_url = reverse_lazy('index')
+
+
+
+
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from .models import Categories
+class CategoryListView(ListView):
+    model = Categories
+    template_name = 'category_list.html'
+    context_object_name = 'categories'
+
+class CategoryDetailView(DetailView):
+    model = Categories
+    template_name = 'category_detail.html'
+
+class CategoryCreateView(CreateView):
+    model = Categories
+    fields = ['name']
+    template_name = 'category_form.html'
+    success_url = reverse_lazy('category_list')
+
+class CategoryUpdateView(UpdateView):
+    model = Categories
+    fields = ['name']
+    template_name = 'category_form.html'
+    success_url = reverse_lazy('category_list')
+
+class CategoryDeleteView(DeleteView):
+    model = Categories
+    template_name = 'category_confirm_delete.html'
+    success_url = reverse_lazy('category_list')
+
+
+
+class CarListView(ListView):
+    model = Cars
+    template_name = 'car_list.html'
+    context_object_name = 'cars'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Cars.objects.filter(name__icontains=query)
+        return Cars.objects.all()
+
+class BrandListView(ListView):
+    model = Brands
+    template_name = 'brand_list.html'
+    context_object_name = 'brands'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Brands.objects.filter(name__icontains=query)
+        return Brands.objects.all()
+
+
+
+
+class CarListView(ListView):
+    model = Cars
+    template_name = 'car_list.html'
+    context_object_name = 'cars'
+    paginate_by = 5
+
+class BrandListView(ListView):
+    model = Brands
+    template_name = 'brand_list.html'
+    context_object_name = 'brands'
+    paginate_by = 5

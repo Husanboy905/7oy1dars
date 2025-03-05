@@ -12,7 +12,7 @@
 #     path('logout/', views.user_logout, name='logout'),
 # ]
 from django.urls import path
-from .views import CarListView,CarByColorView,CarByBrandView,CarDetailView,AddCommentView,RegisterView,LoginView, LogoutView
+from .views import CarListView,CarByColorView,CarByBrandView,CarDetailView,AddCommentView,RegisterView,LoginView, LogoutView,CarUpdateView
 
 urlpatterns = [
     path("", CarListView.as_view(), name="index"),
@@ -23,4 +23,17 @@ urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
+    path('car/update/<int:pk>/', CarUpdateView.as_view(), name='car_update'),
+]
+from .views import (
+    CategoryListView, CategoryDetailView, CategoryCreateView,
+    CategoryUpdateView, CategoryDeleteView
+)
+
+urlpatterns += [
+    path('categories/', CategoryListView.as_view(), name='category_list'),
+    path('categories/<int:pk>/', CategoryDetailView.as_view(), name='category_detail'),
+    path('categories/add/', CategoryCreateView.as_view(), name='category_add'),
+    path('categories/update/<int:pk>/', CategoryUpdateView.as_view(), name='category_update'),
+    path('categories/delete/<int:pk>/', CategoryDeleteView.as_view(), name='category_delete'),
 ]
